@@ -30,3 +30,4 @@ This is a scaffold — run npm installs and adapt DB credentials before use.
 # liftdoor
 # liftdoor
 # liftdoor
+# liftdoor
