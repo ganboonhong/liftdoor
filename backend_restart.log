@@ -1,0 +1,7 @@
+npm error Lifecycle script `start:dev` failed with error:
+npm error workspace liftdoor-backend@0.1.0
+npm error location /Users/boonhong/liftdoor/backend
+npm error Missing script: "start:dev"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run --workspace=liftdoor-backend@0.1.0
