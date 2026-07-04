@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-type Row = { block: string; region?: string; notes?: string; street?: string; postal?: string; liftcode?: string; sidebyside?: string; height?: string; keyhole?: string; created_at?: string; updated_at?: string };
+type Row = { id?: number; block: string; region?: string; notes?: string; street?: string; postal?: string; liftcode?: string; sidebyside?: string; height?: string; keyhole?: string; created_at?: string; updated_at?: string };
 
 export default function Home() {
   const [rows, setRows] = useState<Row[]>([]);

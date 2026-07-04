@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+DOCKER.md
+.next
+dist
+.env
+.env.example
+.turbo
+frontend_dev.log
+backend_dev.log
+backend_restart.log
+*.md

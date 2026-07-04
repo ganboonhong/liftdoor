@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: liftdoor-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_PATH=/app/data/liftdoor.db
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET:-changeme}
+      - ONEMAP_API_KEY=${ONEMAP_API_KEY:-}
+    volumes:
+      - backend-data:/app/data
+    restart: unless-stopped
+    networks:
+      - liftdoor-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/lifts"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: liftdoor-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - liftdoor-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+networks:
+  liftdoor-network:
+    driver: bridge
+
+volumes:
+  backend-data:
