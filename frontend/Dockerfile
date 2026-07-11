@@ -1,5 +1,5 @@
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app/frontend
 
@@ -13,13 +13,13 @@ COPY frontend/pages ./pages
 COPY frontend/styles ./styles
 
 # Install all dependencies (including dev)
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Build application
 RUN npm run build
 
 # Runtime stage
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -30,7 +30,7 @@ RUN apk add --no-cache dumb-init
 COPY frontend/package.json ./
 
 # Install production dependencies only
-RUN npm install --omit=dev
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy built application from builder
 COPY --from=builder /app/frontend/.next ./.next

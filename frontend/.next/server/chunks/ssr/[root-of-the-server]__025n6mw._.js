@@ -1,0 +1,3 @@
+module.exports=[8171,(a,b,c)=>{b.exports=a.x("react/jsx-runtime",()=>require("react/jsx-runtime"))},7669,(a,b,c)=>{b.exports=a.x("react",()=>require("react"))},3309,a=>a.a(async(b,c)=>{try{let b=await a.y("axios-fc13683ac9a02a51");a.n(b),c()}catch(a){c(a)}},!0),5143,a=>a.a(async(b,c)=>{try{var d=a.i(8171),e=a.i(3309),f=a.i(7669),g=b([e]);[e]=g.then?(await g)():g,a.s(["default",0,function({Component:a,pageProps:b}){return(0,f.useEffect)(()=>{},[]),(0,d.jsx)(a,{...b})}]),c()}catch(a){c(a)}},!1)];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__025n6mw._.js.map

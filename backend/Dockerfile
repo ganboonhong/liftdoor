@@ -1,5 +1,5 @@
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app/backend
 
@@ -7,7 +7,7 @@ WORKDIR /app/backend
 COPY backend/package.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY backend/src ./src
@@ -17,7 +17,7 @@ COPY backend/tsconfig.json ./
 RUN npm run build
 
 # Runtime stage
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ RUN apk add --no-cache dumb-init
 COPY backend/package.json ./
 
 # Install production dependencies only
-RUN npm install --omit=dev
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy built application
 COPY --from=builder /app/backend/dist ./dist
