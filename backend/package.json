@@ -8,25 +8,27 @@
     "build": "nest build"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/core": "^9.0.0",
-    "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/typeorm": "^9.0.0",
-    "typeorm": "^0.3.0",
-    "sqlite3": "^5.1.7",
+    "@nestjs/common": "^11.1.28",
+    "@nestjs/core": "^11.1.28",
+    "@nestjs/platform-express": "^11.1.28",
+    "@nestjs/typeorm": "^11.0.3",
     "axios": "^1.0.0",
-    "csv-stringify": "^6.0.0",
-    "reflect-metadata": "^0.1.13",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
+    "csv-stringify": "^6.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "next": "16.2.10",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^6.0.1",
+    "turbo": "2.10.4",
+    "typeorm": "^0.3.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^9.0.0",
-    "@nestjs/schematics": "^9.0.0",
-    "@nestjs/testing": "^9.0.0",
-    "ts-node": "^10.0.0",
-    "typescript": "^5.0.0",
+    "@nestjs/cli": "^11.0.24",
+    "@nestjs/schematics": "^11.1.0",
+    "@nestjs/testing": "^11.1.28",
+    "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^9.0.0",
-    "@types/bcryptjs": "^2.4.2"
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
   }
 }

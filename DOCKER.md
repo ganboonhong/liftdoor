@@ -21,12 +21,12 @@ First run will:
 - Build backend image (NestJS with SQLite)
 - Build frontend image (Next.js static)
 - Start both services with health checks
-- Backend available at port 3001
-- Frontend available at port 3000
+- Backend available at port 4001
+- Frontend available at port 4000
 
 ### 2. Access Application
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:3001/lifts
+- **Frontend**: http://localhost:4000
+- **Backend API**: http://localhost:4001/lifts
 
 ### 3. View Logs
 ```bash
@@ -59,13 +59,13 @@ Environment variables:
 - **Image**: Node.js 18 Alpine
 - **Build**: Multi-stage (builder + runtime)
 - **Database**: SQLite at `/app/data/liftdoor.db`
-- **Port**: 3001
+- **Port**: 4001
 - **Health Check**: `/lifts` endpoint every 10s
 
 ### Frontend Container
 - **Image**: Node.js 18 Alpine
 - **Build**: Multi-stage (builder + runtime)
-- **Port**: 3000
+- **Port**: 4000
 - **Startup**: Waits for backend health check
 - **Health Check**: HTTP GET to `/` every 10s
 
@@ -97,6 +97,6 @@ docker build -t liftdoor-frontend:latest -f frontend/Dockerfile .
 
 ## Troubleshooting
 
-- **Build fails**: Check Docker logs, verify ports 3000/3001 are free
+- **Build fails**: Check Docker logs, verify ports 4000/4001 are free
 - **Data not persisting**: Verify volume: `docker volume ls`
 - **Health checks failing**: `docker-compose logs backend`

@@ -38,7 +38,7 @@ COPY --from=builder /app/frontend/pages ./pages
 COPY --from=builder /app/frontend/styles ./styles
 COPY --from=builder /app/frontend/next.config.js ./next.config.js
 
-EXPOSE 3000
+EXPOSE 4000
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["npm", "start"]

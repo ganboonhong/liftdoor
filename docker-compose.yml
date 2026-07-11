@@ -7,7 +7,7 @@ services:
       dockerfile: backend/Dockerfile
     container_name: liftdoor-backend
     ports:
-      - "3001:3001"
+      - "4001:4001"
     environment:
       - DB_PATH=/app/data/liftdoor.db
       - NODE_ENV=production
@@ -19,7 +19,7 @@ services:
     networks:
       - liftdoor-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/lifts"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4001/lifts"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -31,7 +31,7 @@ services:
       dockerfile: frontend/Dockerfile
     container_name: liftdoor-frontend
     ports:
-      - "3000:3000"
+      - "4000:4000"
     environment:
       - NODE_ENV=production
     depends_on:
@@ -41,7 +41,7 @@ services:
     networks:
       - liftdoor-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4000"]
       interval: 10s
       timeout: 5s
       retries: 5

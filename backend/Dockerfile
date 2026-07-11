@@ -36,7 +36,7 @@ COPY --from=builder /app/backend/dist ./dist
 # Create data directory for SQLite
 RUN mkdir -p ./data
 
-EXPOSE 3001
+EXPOSE 4001
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/main.js"]

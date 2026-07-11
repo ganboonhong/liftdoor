@@ -22,7 +22,7 @@ export default function Home() {
     let mounted = true;
     (async () => {
       try {
-        const res = await axios.get('http://localhost:3001/lifts');
+        const res = await axios.get('http://localhost:4001/lifts');
         if (mounted && Array.isArray(res.data)) setRows(res.data);
       } catch (e) {
         console.warn('failed to load lifts', e);
@@ -68,7 +68,7 @@ export default function Home() {
     let street = '';
     let postal = '';
     try {
-      const r = await axios.get('http://localhost:3001/lifts/lookup', { params: { block, region } });
+      const r = await axios.get('http://localhost:4001/lifts/lookup', { params: { block, region } });
       if (r.data) { street = r.data.address || ''; postal = r.data.postal || ''; }
     } catch (e) { console.warn('lookup failed', e); }
 
@@ -77,7 +77,7 @@ export default function Home() {
     if (editingId) {
       // update existing
       try {
-        const res = await axios.put(`http://localhost:3001/lifts/${editingId}`, payload);
+        const res = await axios.put(`http://localhost:4001/lifts/${editingId}`, payload);
         if (res?.data) {
           setRows(prev => prev.map(r => (r.id === editingId ? res.data : r)));
           setEditingId(null);
@@ -97,7 +97,7 @@ export default function Home() {
 
     // persist to backend
     try {
-      const res = await axios.post('http://localhost:3001/lifts', payload);
+      const res = await axios.post('http://localhost:4001/lifts', payload);
 
       // replace optimistic row with server-provided row (if returned)
       if (res?.data) {
@@ -134,7 +134,7 @@ export default function Home() {
     if (!id) return;
     if (!confirm('Delete this row?')) return;
     try {
-      await axios.delete(`http://localhost:3001/lifts/${id}`);
+      await axios.delete(`http://localhost:4001/lifts/${id}`);
       setRows(prev => prev.filter(r => r.id !== id));
       if (editingId === id) setEditingId(null);
     } catch (e) {
@@ -150,7 +150,7 @@ export default function Home() {
         .filter(r => dateOnlyUtc8(r.updated_at) === selectedDate)
         .sort((a,b) => (Date.parse(b.updated_at||'')||0) - (Date.parse(a.updated_at||'')||0))
         .map(r => ({ ...r, updated_at: formatUtc8(r.updated_at) }));
-      const res = await axios.post('http://localhost:3001/lifts/csv', { rows: payloadRows }, { responseType: 'blob' });
+      const res = await axios.post('http://localhost:4001/lifts/csv', { rows: payloadRows }, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const a = document.createElement('a');
       a.href = url; a.download = 'lifts.csv';

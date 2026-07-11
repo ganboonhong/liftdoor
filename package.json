@@ -6,11 +6,16 @@
     "backend"
   ],
   "devDependencies": {
-    "turbo": "^1.10.0"
+    "turbo": "^2.10.4"
   },
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
     "start": "turbo run start --parallel"
+  },
+  "dependencies": {
+    "@nestjs/common": "11.1.28",
+    "@nestjs/core": "11.1.28",
+    "next": "16.2.10"
   }
 }
