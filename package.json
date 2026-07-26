@@ -10,9 +10,9 @@
     "turbo": "^2.10.4"
   },
   "scripts": {
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "turbo run start --parallel"
+    "start": "turbo run start"
   },
   "dependencies": {
     "@nestjs/common": "11.1.28",
