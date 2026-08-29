@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { buildApiUrl } from '../lib/api';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ export default function Login() {
   async function submit(e: any) {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/auth/login', { username, password });
+      const res = await axios.post(buildApiUrl('/auth/login'), { username, password });
       localStorage.setItem('token', res.data.token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
       router.push('/');

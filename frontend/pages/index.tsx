@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { buildApiUrl } from '../lib/api';
 
 type Row = { id?: number; block: string; region?: string; notes?: string; street?: string; postal?: string; liftcode?: string; sidebyside?: string; height?: string; keyhole?: string; created_at?: string; updated_at?: string };
 
@@ -17,15 +18,12 @@ export default function Home() {
   const today = new Date().toISOString().slice(0,10);
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
-          console.log('barrr')
   // load existing lifts on mount
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
-          console.log('foooo')
-        const res = await axios.get('./liftsx');
-        // const res = await axios.get('http://localhost:4001/lifts');
+        const res = await axios.get(buildApiUrl('/lifts'));
         if (mounted && Array.isArray(res.data)) setRows(res.data);
       } catch (e) {
         console.warn('failed to load lifts', e);
@@ -71,7 +69,7 @@ export default function Home() {
     let street = '';
     let postal = '';
     try {
-      const r = await axios.get('http://localhost:4001/lifts/lookup', { params: { block, region } });
+      const r = await axios.get(buildApiUrl('/lifts/lookup'), { params: { block, region } });
       if (r.data) { street = r.data.address || ''; postal = r.data.postal || ''; }
     } catch (e) { console.warn('lookup failed', e); }
 
@@ -80,7 +78,7 @@ export default function Home() {
     if (editingId) {
       // update existing
       try {
-        const res = await axios.put(`http://localhost:4001/lifts/${editingId}`, payload);
+        const res = await axios.put(buildApiUrl(`/lifts/${editingId}`), payload);
         if (res?.data) {
           setRows(prev => prev.map(r => (r.id === editingId ? res.data : r)));
           setEditingId(null);
@@ -100,7 +98,7 @@ export default function Home() {
 
     // persist to backend
     try {
-      const res = await axios.post('http://localhost:4001/lifts', payload);
+      const res = await axios.post(buildApiUrl('/lifts'), payload);
 
       // replace optimistic row with server-provided row (if returned)
       if (res?.data) {
@@ -137,7 +135,7 @@ export default function Home() {
     if (!id) return;
     if (!confirm('Delete this row?')) return;
     try {
-      await axios.delete(`http://localhost:4001/lifts/${id}`);
+      await axios.delete(buildApiUrl(`/lifts/${id}`));
       setRows(prev => prev.filter(r => r.id !== id));
       if (editingId === id) setEditingId(null);
     } catch (e) {
@@ -153,7 +151,7 @@ export default function Home() {
         .filter(r => dateOnlyUtc8(r.updated_at) === selectedDate)
         .sort((a,b) => (Date.parse(b.updated_at||'')||0) - (Date.parse(a.updated_at||'')||0))
         .map(r => ({ ...r, updated_at: formatUtc8(r.updated_at) }));
-      const res = await axios.post('http://localhost:4001/lifts/csv', { rows: payloadRows }, { responseType: 'blob' });
+      const res = await axios.post(buildApiUrl('/lifts/csv'), { rows: payloadRows }, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const a = document.createElement('a');
       a.href = url; a.download = 'lifts.csv';

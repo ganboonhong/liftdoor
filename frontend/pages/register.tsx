@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { buildApiUrl } from '../lib/api';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ export default function Register() {
   async function submit(e: any) {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/auth/register', { username, password });
+      await axios.post(buildApiUrl('/auth/register'), { username, password });
       router.push('/login');
     } catch (err: any) {
       setError(err?.response?.data?.message || 'Registration failed');
