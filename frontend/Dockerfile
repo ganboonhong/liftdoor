@@ -10,6 +10,7 @@ COPY frontend/next.config.js ./
 COPY frontend/next-env.d.ts ./
 COPY frontend/global.d.ts ./
 COPY frontend/pages ./pages
+COPY frontend/lib ./lib
 COPY frontend/styles ./styles
 
 # Install all dependencies (including dev)
