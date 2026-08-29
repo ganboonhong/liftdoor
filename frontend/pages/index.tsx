@@ -17,12 +17,15 @@ export default function Home() {
   const today = new Date().toISOString().slice(0,10);
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
+          console.log('barrr')
   // load existing lifts on mount
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
-        const res = await axios.get('http://localhost:4001/lifts');
+          console.log('foooo')
+        const res = await axios.get('./liftsx');
+        // const res = await axios.get('http://localhost:4001/lifts');
         if (mounted && Array.isArray(res.data)) setRows(res.data);
       } catch (e) {
         console.warn('failed to load lifts', e);
