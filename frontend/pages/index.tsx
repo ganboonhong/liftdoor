@@ -180,8 +180,8 @@ export default function Home() {
         <div className="inputs-grid">
           <label className="field inline"><span>Block</span><input value={block} onChange={e => setBlock(e.target.value)} placeholder="401" /></label>
           <label className="field inline"><span>Road Name</span><input value={region} onChange={e => setRegion(e.target.value)} placeholder="Woodlands Steet 41" /></label>
-          <label className="field inline"><span>Lift Available</span><input value={liftcode} onChange={e => setLiftcode(e.target.value)} placeholder="A,B,C" /></label>
-          <label className="field inline"><span>Side-by-side</span><input value={sidebyside} onChange={e => setSidebyside(e.target.value)} placeholder="A,B" /></label>
+          <label className="field inline"><span>Lift Available</span><input value={liftcode} onChange={e => setLiftcode(e.target.value.toUpperCase())} placeholder="A,B,C" /></label>
+          <label className="field inline"><span>Side-by-side</span><input value={sidebyside} onChange={e => setSidebyside(e.target.value.toUpperCase())} placeholder="A,B" /></label>
           <label className="field inline full"><span>Notes</span><input value={notes} onChange={e => setNotes(e.target.value)} placeholder="" /></label>
           <label className="field inline"><span>Height</span><input value={height} onChange={e => setHeight(e.target.value)} placeholder="37" /></label>
           <label className="field inline"><span>Keyhole</span><input value={keyhole} onChange={e => setKeyhole(e.target.value)} placeholder="8" /></label>
