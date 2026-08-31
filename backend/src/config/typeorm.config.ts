@@ -7,7 +7,7 @@ mkdirSync(dbDir, { recursive: true });
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'sqlite',
-  database: join(dbDir, 'liftdoor.db'),
+  database: join(dbDir, 'liftdoor.sqlite'),
   entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
   synchronize: true
 };

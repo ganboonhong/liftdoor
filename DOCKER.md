@@ -58,7 +58,7 @@ Environment variables:
 ### Backend Container
 - **Image**: Node.js 18 Alpine
 - **Build**: Multi-stage (builder + runtime)
-- **Database**: SQLite at `/app/data/liftdoor.db`
+- **Database**: SQLite at `/app/data/liftdoor.sqlite`
 - **Port**: 4001
 - **Health Check**: `/lifts` endpoint every 10s
 

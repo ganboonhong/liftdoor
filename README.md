@@ -23,11 +23,83 @@ Features implemented in scaffold:
 - Next.js SPA with a form to add records, preview table, and CSV download button
 
 This is a scaffold — run npm installs and adapt DB credentials before use.
-# liftdoor
-# liftdoor
-# liftdoor
-# liftdoor
-# liftdoor
-# liftdoor
-# liftdoor
-# liftdoor
+
+
+### how to start this app
+
+run `docker compose up -d` then visit http://localhost:4000/
+
+or
+
+run `npm run dev` then visit http://localhost:4000/liftdoor
+
+
+### nginx config
+
+```
+/etc/nginx/sites-available/refs.ddns.net
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name refs.ddns.net;
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name refs.ddns.net;
+
+    ssl_certificate /etc/letsencrypt/live/refs.ddns.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/refs.ddns.net/privkey.pem;
+
+    location = /liftdoor {
+        proxy_pass http://127.0.0.1:4000;
+
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /liftdoor/ {
+        proxy_pass http://127.0.0.1:4000;
+
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # NestJS backend
+    location /api/ {
+        proxy_pass http://127.0.0.1:4001/;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+        root /var/www/html;
+        index index.html index.htm;
+    }
+}
+```
+

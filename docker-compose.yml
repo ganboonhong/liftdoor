@@ -7,7 +7,7 @@ services:
     ports:
       - "4001:4001"
     environment:
-      - DB_PATH=/app/data/liftdoor.db
+      - DB_PATH=/app/data/liftdoor.sqlite
       - NODE_ENV=production
       - JWT_SECRET=${JWT_SECRET:-changeme}
       - ONEMAP_API_KEY=${ONEMAP_API_KEY:-}
