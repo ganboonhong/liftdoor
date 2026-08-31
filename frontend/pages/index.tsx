@@ -178,18 +178,18 @@ export default function Home() {
 
       <section className="form">
         <div className="inputs-grid">
-          <label className="field inline"><span>Block</span><input value={block} onChange={e => setBlock(e.target.value)} placeholder="e.g. 123" /></label>
-          <label className="field inline"><span>Region</span><input value={region} onChange={e => setRegion(e.target.value)} placeholder="Region or floor" /></label>
-          <label className="field inline"><span>Lift Code</span><input value={liftcode} onChange={e => setLiftcode(e.target.value)} placeholder="Optional lift code" /></label>
-          <label className="field inline"><span>Side-by-side</span><input value={sidebyside} onChange={e => setSidebyside(e.target.value)} placeholder="Yes/No or details" /></label>
-          <label className="field inline full"><span>Notes</span><input value={notes} onChange={e => setNotes(e.target.value)} placeholder="Optional notes" /></label>
-          <label className="field inline"><span>Height</span><input value={height} onChange={e => setHeight(e.target.value)} placeholder="e.g. 2.3m" /></label>
-          <label className="field inline"><span>Keyhole</span><input value={keyhole} onChange={e => setKeyhole(e.target.value)} placeholder="Optional keyhole info" /></label>
+          <label className="field inline"><span>Block</span><input value={block} onChange={e => setBlock(e.target.value)} placeholder="401" /></label>
+          <label className="field inline"><span>Road Name</span><input value={region} onChange={e => setRegion(e.target.value)} placeholder="Woodlands Steet 41" /></label>
+          <label className="field inline"><span>Lift Available</span><input value={liftcode} onChange={e => setLiftcode(e.target.value)} placeholder="A,B,C" /></label>
+          <label className="field inline"><span>Side-by-side</span><input value={sidebyside} onChange={e => setSidebyside(e.target.value)} placeholder="A,B" /></label>
+          <label className="field inline full"><span>Notes</span><input value={notes} onChange={e => setNotes(e.target.value)} placeholder="" /></label>
+          <label className="field inline"><span>Height</span><input value={height} onChange={e => setHeight(e.target.value)} placeholder="37" /></label>
+          <label className="field inline"><span>Keyhole</span><input value={keyhole} onChange={e => setKeyhole(e.target.value)} placeholder="8" /></label>
         </div>
 
         <div className="actions">
           <button className="btn primary" onClick={addRow}>{editingId ? 'Save' : 'Add'}</button>
-          <button className="btn" onClick={clearForm}>Clear</button>
+          <button className="btn danger" onClick={clearForm}>Clear</button>
         </div>
       </section>
 
@@ -202,10 +202,10 @@ export default function Home() {
         <table className="table">
           <thead>
             <tr>
-              <th>Edit</th>
+              <th>Action</th>
               <th>Block</th>
-              <th>Region</th>
-              <th>Lift Code</th>
+              <th>Road</th>
+              <th>Lift Available</th>
               <th>Side-by-side</th>
               <th>Height</th>
               <th>Keyhole</th>
@@ -226,7 +226,7 @@ export default function Home() {
                 <td>{r.sidebyside}</td>
                 <td>{r.height}</td>
                 <td>{r.keyhole}</td>
-                <td>{r.updated_at}</td>
+                <td>{formatUtc8(r.updated_at)}</td>
                 <td>{r.notes}</td>
                 <td className="row-actions">
                   <button className="btn small danger" onClick={() => deleteRow(r.id)}>Delete</button>

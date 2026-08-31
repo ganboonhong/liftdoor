@@ -16,7 +16,7 @@ export class LiftsController {
     return this.svc.findAll();
   }
 
-  @Get('csv')
+  @Post('csv')
   async csv(@Body() body: any, @Res() res: Response) {
     // Accept rows in body (POST would be better, but keep GET for quick tests)
     const rows = body?.rows ?? [];

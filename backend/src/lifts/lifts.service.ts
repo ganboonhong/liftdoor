@@ -44,8 +44,6 @@ export class LiftsService {
     const params = new URLSearchParams({ searchVal, returnGeom: 'N', getAddrDetails: 'Y' });
     const url = `${base}?${params.toString()}`;
 
-    console.log(url)
-
     // include token if provided in environment
     const headers: Record<string, string> = {};
     const token = process.env.ONEMAP_TOKEN || process.env.ONEMAP_API_KEY;
@@ -56,13 +54,37 @@ export class LiftsService {
     if (results.length === 0) return null;
     // return first match's ADDRESS and postal
     const first = results[0];
-    return { address: first.ADDRESS, postal: first.POSTAL };
+    
+    // Process address: replace SINGAPORE with (S) and apply title case
+    let address = first.ADDRESS || '';
+    address = address.replace(/SINGAPORE/gi, '(S)');
+    address = address.replace(/\b\w/g, (char: string) => char.toUpperCase()).replace(/\B\w/g, (char: string) => char.toLowerCase());
+    
+    return { address, postal: first.POSTAL };
   }
 
   // Generate CSV from provided rows (array of objects)
   generateCsv(rows: any[]) {
     if (!Array.isArray(rows)) throw new Error('Expected array');
-    const csv = stringify(rows, { header: true });
+    
+    // Map rows to include only desired columns plus a serial number and measurement
+    const processedRows = rows.map((row, index) => {
+      const keyholeValue = row.keyhole ? `${row.keyhole}KH` : 'X KH';
+      const measurement = `210HH, 90SS, 97BB, ${row.height || ''}TT, ${keyholeValue}`;
+      
+      return {
+        'S/N': index + 1,
+        Address: row.street || '',
+        Block: row.block || '',
+        'Lift Available': row.liftcode || '',
+        'Lifts side by side?': row.sidebyside || '',
+        measurement,
+      };
+    });
+
+    console.log(processedRows)
+    
+    const csv = stringify(processedRows, { header: true });
     return csv;
   }
 }
